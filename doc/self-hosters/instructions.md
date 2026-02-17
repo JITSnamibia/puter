@@ -47,6 +47,39 @@ See [domain configuration](./domains.md) for more information.
 - If you have HTTPS enabled on your reverse-proxy, ensure that
   `protocol` in config.json is set accordingly
 
+### Vercel Hosting
+
+Puter can run on Vercel as a Node.js deployment, with a few recommended defaults:
+
+- `PORT` should be managed by Vercel automatically
+- `VERCEL` and `VERCEL_URL` are detected automatically at runtime
+- On Vercel, Puter now defaults to:
+  - `env: "prod"`
+  - `protocol: "https"`
+  - `experimental_no_subdomain: true`
+  - `allow_all_host_values: true`
+
+If you want to pin to a specific custom domain, set this in your `config.json`:
+
+```json
+"domain": "your-domain.example"
+```
+
+For best results on Vercel, add both your production domain and preview domain(s)
+to your deployment settings, and use persistent external services for storage/database.
+
+For this repository, a `vercel.json` file is included with:
+
+- `buildCommand`: `npm run build`
+- `outputDirectory`: `src/gui/dist`
+- rewrite `/dist/*` to root assets (`/*`)
+- SPA rewrite fallback to `/index.html`
+
+This ensures `vercel build` can find a valid output directory and serve the built GUI.
+
+The GUI build now also emits a static `index.html` in `src/gui/dist` for static hosts.
+
+
 ### Default User
 
 By default, Puter will create a user called `default_user`.

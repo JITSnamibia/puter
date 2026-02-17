@@ -16,15 +16,22 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+const vercel_hostname = process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
+const is_vercel = !!process.env.VERCEL;
+
 module.exports = {
     config_name: 'generated default config',
-    env: 'dev',
+    env: is_vercel ? 'prod' : 'dev',
     nginx_mode: true, // really means "serve http instead of https"
     server_id: 'localhost',
-    http_port: 'auto',
-    domain: 'puter.localhost',
-    protocol: 'http',
+    http_port: process.env.PORT ?? 'auto',
+    domain: vercel_hostname || 'puter.localhost',
+    protocol: is_vercel ? 'https' : 'http',
     contact_email: 'hey@example.com',
+    allow_all_host_values: is_vercel,
+    experimental_no_subdomain: is_vercel,
+    disable_ip_validate_event: is_vercel,
+    no_browser_launch: is_vercel,
 
     services: {
         database: {
