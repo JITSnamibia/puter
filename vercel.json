@@ -6,10 +6,6 @@
   "outputDirectory": "src/gui/dist",
   "rewrites": [
     {
-      "source": "/dist/(.*)",
-      "destination": "/$1"
-    },
-    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
