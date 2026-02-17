@@ -4,6 +4,13 @@
   "installCommand": "npm install",
   "buildCommand": "npm run build",
   "outputDirectory": "src/gui/dist",
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/.*",
+      "dest": "/index.html"
   "rewrites": [
     {
       "source": "/(.*)",

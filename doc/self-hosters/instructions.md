@@ -68,6 +68,17 @@ If you want to pin to a specific custom domain, set this in your `config.json`:
 For best results on Vercel, add both your production domain and preview domain(s)
 to your deployment settings, and use persistent external services for storage/database.
 
+For this repository, a `vercel.json` file is included with:
+
+- `buildCommand`: `npm run build`
+- `outputDirectory`: `src/gui/dist`
+- SPA rewrite fallback to `/index.html`
+
+This ensures `vercel build` can find a valid output directory and serve the built GUI.
+
+The GUI build now also emits a static `index.html` in `src/gui/dist` for static hosts.
+
+
 ### Default User
 
 By default, Puter will create a user called `default_user`.

@@ -210,6 +210,7 @@ async function build (options) {
     <script>window.puter_gui_enabled = true; window.gui_env = 'prod';</script>
 </head>
 <body>
+    <script src="/bundle.min.js"></script>
     <script src="/dist/bundle.min.js"></script>
     <script type="module">
         window.addEventListener('load', function () {
