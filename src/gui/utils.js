@@ -211,6 +211,7 @@ async function build (options) {
 </head>
 <body>
     <script src="/bundle.min.js"></script>
+    <script src="/dist/bundle.min.js"></script>
     <script type="module">
         window.addEventListener('load', function () {
             gui({
