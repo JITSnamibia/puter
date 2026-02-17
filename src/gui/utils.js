@@ -197,6 +197,33 @@ async function build (options) {
     for ( const to_copy of copy_these ) {
         recursive_copy(path.join(__dirname, 'src', to_copy), path.join(__dirname, 'dist', to_copy));
     }
+
+
+    // Generate a static index.html for static hosting targets (e.g. Vercel static output).
+    // Runtime backend deployments still use server-rendered homepage HTML.
+    fs.writeFileSync(path.join(__dirname, 'dist', 'index.html'), `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Puter</title>
+    <script>window.puter_gui_enabled = true; window.gui_env = 'prod';</script>
+</head>
+<body>
+    <script src="/bundle.min.js"></script>
+    <script type="module">
+        window.addEventListener('load', function () {
+            gui({
+                gui_origin: window.location.origin,
+                api_origin: window.location.origin,
+                app_domain: window.location.hostname,
+                hosting_domain: window.location.hostname,
+            });
+        });
+    </script>
+</body>
+</html>
+`);
 }
 
 /**

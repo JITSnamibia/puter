@@ -73,8 +73,13 @@ window.gui = async (options) => {
     // note: Build script will prepend `window.gui_env="prod"` to the top of the file
     else if ( window.gui_env === 'prod' ) {
         await window.loadScript('https://js.puter.com/v2/');
-        // Load the minified bundles
-        await window.loadCSS('/dist/bundle.min.css');
+        // Load the minified stylesheet. `/dist/...` is used by backend runtime,
+        // while `/<file>` is used by static deployments like Vercel outputDirectory.
+        try {
+            await window.loadCSS('/dist/bundle.min.css');
+        } catch (_e) {
+            await window.loadCSS('/bundle.min.css');
+        }
     }
 
     // Load Cloudflare Turnstile script
